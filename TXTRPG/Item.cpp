@@ -6,11 +6,12 @@ Item::Item()
 {
 }
 
-Item::Item(string x, int y, int z)
+Item::Item(string x, int y, int z,bool tf=0)
 {
 	this->name = x;
 	this->buffType = y;
 	this->buffPower = z;
+	this->dressed = tf;
 }
 Item::~Item()
 {
@@ -40,11 +41,22 @@ void Item::setBuffPower(int x)
 {
 	this->buffPower = x;
 }
-int Item::getPlace()
+bool Item::getDressed()
 {
-	return place;
+	return dressed;
 }
-void Item::setPlace(int x)
+void Item::setDressed(bool tf)
 {
-	this->place = x;
+	this->dressed = tf;
 }
+
+
+
+//int Item::getPlace()
+//{
+//	return place;
+//}
+//void Item::setPlace(int x)
+//{
+//	this->place = x;
+//}

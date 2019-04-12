@@ -6,11 +6,11 @@ class Item
 	string name;
 	int buffType;
 	int buffPower;
-	int place;
+	bool dressed;
 
 public:
 	Item();
-	Item(string, int, int);
+	Item(string, int, int,bool);
 	~Item();
 	string getName();
 	void setName(string);
@@ -18,7 +18,8 @@ public:
 	void setBuffType(int);
 	int getBuffPower();
 	void setBuffPower(int);
-	int getPlace();
-	void setPlace(int);
+	void setDressed(bool);
+	bool getDressed();
+
 };
 

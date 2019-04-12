@@ -15,8 +15,6 @@ public:
 
 	static Game* getInstance();
 
-
-	//Game();
 	~Game();
 	void result2(Player &, Area &);
 	void result(Player &,Area &);
@@ -24,12 +22,5 @@ public:
 };
 
 
-//void readlocation();
-//void writeinput();
-//void writeoutput();
-//void readinput();
-//void readplayer();
-//void writeplayer();
-//void writeinput2();
-//void writeoutput2();
+
 

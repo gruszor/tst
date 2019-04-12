@@ -87,7 +87,6 @@ void InOut::createGraphicOverlay()
 void InOut::createInfoBar(Player & gracz, Area & obj)
 {
 	cout <<"                  "<< "Location name: " << obj.getAreaName() << " Location Type: " << obj.getAreaType() << endl;
-	//cout << "-------------------------------------------------------------------------------" << endl;
 	cout <<"                 " << "HP: " << gracz.getHP() << " Mana: " << gracz.getMana() << " Stamina: " << gracz.getStamina() << " EXP: " << gracz.getEXP() << " Gold: " << gracz.getGold() << endl;
 	//cout << "===============================================================================" << endl;
 }
@@ -109,77 +108,88 @@ string InOut::pressButton(string button, string info)
 //	newArea = (*round).areaMaker(prevArea, dir);
 //
 //}
+
 void InOut::playerMenu(Player & obj,Bag & bag )
 {
-	int j = 0;
-	int pressKey = 0;
-	do
-	{
-		system("cls");
-		createGraphicOverlay();
-		for (int i = 0; i < 3; i++)
-		{
-			if (i == j)
-				cout << obj.statNames[i] << "<-->" << obj.getStat(i) << "    /////    <" << (bag.getItemEQ(i)).getName() << " " << (bag.getItemEQ(i)).getBuffType() << "/" << (bag.getItemEQ(i)).getBuffPower() << ">" << endl;
-			else
-				cout << obj.statNames[i] << "<-->" << obj.getStat(i) << "    /////    " << (bag.getItemEQ(i)).getName() << " " << (bag.getItemEQ(i)).getBuffType() << "/" << (bag.getItemEQ(i)).getBuffPower() << endl;
-		}
-		for (int i = 3; i < 12; i++)
-		{
-			if (i == j)
-				cout << obj.statNames[i] << "<-->" << obj.getStat(i) << "    /////    <" << (bag.getItemBP(i - 3)).getName() << " " << (bag.getItemBP(i - 3)).getBuffType() << "/" << (bag.getItemBP(i - 3)).getBuffPower() << ">" << endl;
-			else
-				cout << obj.statNames[i] << "<-->" << obj.getStat(i) << "    /////    " << (bag.getItemBP(i - 3)).getName() << " " << (bag.getItemBP(i - 3)).getBuffType() << "/" << (bag.getItemBP(i - 3)).getBuffPower() << endl;
-		}
+	//int j = 0;
+	//int pressKey = 0;
+	//do
+	//{
+	//	system("cls");
+	//	createGraphicOverlay();
 
-		cout << "\n==============================================================================" << endl;
-		cout << "Remember if you throw away your item it will disapear forever!" << endl;
-		cout << "Press: " << pressButton("w", "up") << pressButton("s", "down") << pressButton("a", "throw item away!") << pressButton("d", "move to EQ/BP") << pressButton("i", "map") << pressButton("p", "action") << endl;
 
-		pressKey = _getch();
-		if (pressKey == 's')
-		{
-			if (j == 12) j = 0;
-			else j++;
-		}
-		else if (pressKey == 'w')
-		{
-			if (j == 0)j = 12;
-			else j--;
-		}
-		else if ((pressKey == 'a') && ((!((bag.getVectorBP()).empty())) && (!((bag.getVectorEQ()).empty()))))
-		{
-			if ((j >= 0) && (j < 3))
-			{
-				bag.removeEQ(j,obj);
-			}
-			else bag.removeBP(j - 3);
-		}
-		else if (pressKey == 'd')
-		{
-			if ((j >= 0) && (j < 3))
-			{
-				if (!(((bag.getVectorEQ()).size()) < 3))cout << "no coz :(" << endl;
-				else
-				{
-					Item tmp(bag.getItemEQ(j));
-					(bag.getVectorEQ()).push_back(tmp);
-					(bag.getVectorEQ()).erase((bag.getVectorEQ()).begin() + j);
-				}
+	//	for (int i = 0; i < size(bag.getVectorEQ()); i++)
+	//	{
+	//		if (i == j)
+	//			cout << obj.statNames[i] << "<-->" << obj.getStat(i) << "    /////    <" << (bag.getItemEQ(i)).getName() << " " << (bag.getItemEQ(i)).getBuffType() << "/" << (bag.getItemEQ(i)).getBuffPower() << ">" << endl;
+	//		else
+	//			cout << obj.statNames[i] << "<-->" << obj.getStat(i) << "    /////    " << (bag.getItemEQ(i)).getName() << " " << (bag.getItemEQ(i)).getBuffType() << "/" << (bag.getItemEQ(i)).getBuffPower() << endl;
+	//	}
+	//	for (int i = size(bag.getVectorEQ()); i < size(bag.getVectorEQ())+size(bag.getVectorBP()); i++)
+	//	{
+	//		if (i == j)
+	//			cout << obj.statNames[i] << "<-->" << obj.getStat(i) << "    /////    <" << (bag.getItemBP(i - 3)).getName() << " " << (bag.getItemBP(i - 3)).getBuffType() << "/" << (bag.getItemBP(i - 3)).getBuffPower() << ">" << endl;
+	//		else
+	//			cout << obj.statNames[i] << "<-->" << obj.getStat(i) << "    /////    " << (bag.getItemBP(i - 3)).getName() << " " << (bag.getItemBP(i - 3)).getBuffType() << "/" << (bag.getItemBP(i - 3)).getBuffPower() << endl;
+	//	}
 
-			}
-			else
-			{
-				if (!(((bag.getVectorBP()).size()) < 10))cout << "no coz :(" << endl;
-				else
-				{
-					Item tmp(bag.getItemBP(j-3));
-					(bag.getVectorBP()).push_back(tmp);
-					(bag.getVectorBP()).erase((bag.getVectorBP()).begin() + (j-3));
-				}
-			}
-		}
-	} while (!((pressKey == 'i') || (pressKey == 'p')));
+
+	//	cout << "\n==============================================================================" << endl;
+	//	cout << "Remember if you throw away your item it will disapear forever!" << endl;
+	//	cout << "Press: " << pressButton("w", "up") << pressButton("s", "down") << pressButton("a", "throw item away!") << pressButton("d", "move to EQ/BP") << pressButton("i", "map") << pressButton("p", "action") << endl;
+
+
+	//	pressKey = _getch();
+
+	//	if (pressKey == 's')
+	//	{
+	//		if (j == 12) j = 0;
+	//		else j++;
+	//	}
+
+	//	else if (pressKey == 'w')
+	//	{
+	//		if (j == 0)j = 12;
+	//		else j--;
+	//	}
+
+	//	else if ((pressKey == 'a') && ((!((bag.getVectorBP()).empty())) && (!((bag.getVectorEQ()).empty()))))
+	//	{
+	//		if ((j >= 0) && (j < 3))
+	//		{
+	//			bag.removeEQ(j,obj);
+	//		}
+	//		else bag.removeBP(j - 3);
+	//	}
+
+
+	//	else if (pressKey == 'd')
+	//	{
+	//		if ((j >= 0) && (j < 3))
+	//		{
+	//			if (!(((bag.getVectorEQ()).size()) < 3))cout << "no coz :(" << endl;
+	//			else
+	//			{
+	//				Item tmp(bag.getItemEQ(j));
+	//				(bag.getVectorEQ()).push_back(tmp);
+	//				(bag.getVectorEQ()).erase((bag.getVectorEQ()).begin() + j);
+	//			}
+
+	//		}
+	//		else
+	//		{
+	//			if (!(((bag.getVectorBP()).size()) < 10))cout << "no coz :(" << endl;
+	//			else
+	//			{
+	//				Item tmp(bag.getItemBP(j-3));
+	//				(bag.getVectorBP()).push_back(tmp);
+	//				(bag.getVectorBP()).erase((bag.getVectorBP()).begin() + (j-3));
+	//			}
+	//		}
+	//	}
+
+	//} while (!((pressKey == 'i') || (pressKey == 'p')));
 }
 //void InOut::fight(Player &obj1, Player &obj2)
 //{

@@ -17,10 +17,6 @@ Game::Game()
 
 }
 
-//Game::Game()
-//{
-//
-//}
 
 Game::~Game()
 {
@@ -87,27 +83,6 @@ void Game::result2(Player & obj1, Area & obj2)
 	//case 3:
 	//	InOut::speak();
 	//	break;
-	//}
-
-
-
-
-
-
-	//int sum = obj1.getStrenght() + obj1.getDexterity() + obj1.getIntelligence() + obj1.getSpeed() + obj1.getEndurance() + obj1.getCharisma() + obj1.getLuck() + obj1.getSmartness();
-	//if (sum < (obj2.getEventLevel() + 5))						// need change to be more flexible
-	//{
-	//	if (obj2.getAction() == 0)cout << "nothing changed" << endl;
-	//	else if (obj2.getAction() == 1)cout << "you lose" << endl;
-	//	else if (obj2.getAction() == 2)cout << "the transaction fell through" << endl;
-	//	else if (obj2.getAction() == 3)cout << "this guy didnt like you" << endl;
-	//}
-	//if (sum >= (obj2.getEventLevel() + 5))						// need change to be more flexible
-	//{
-	//	if (obj2.getAction() == 0)cout << "nothing changed" << endl;
-	//	else if (obj2.getAction() == 1)cout << "you win" << endl;
-	//	else if (obj2.getAction() == 2)cout << "the trade was succesfull" << endl;
-	//	else if (obj2.getAction() == 3)cout << "he really likes you!" << endl;
 	//}
 }
 

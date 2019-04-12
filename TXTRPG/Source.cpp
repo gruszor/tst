@@ -23,38 +23,39 @@ int main()
 
 	ReadSave wpis;						//TEMPORARY
 	Bag bag;
-	Item i1("nwm", 1, 2);
-	Item i2("nwm", 1, 2);
-	Item i3("nwm", 1, 2);
-	Item i4("nwm", 1, 2);
-	Item i51("nwm", 1, 2);
-	Item i6("nwm", 1, 2);
-	Item i7("nwm", 1, 2);
-	Item i8("nwm", 1, 2);
-	Item i9("nwm", 1, 2);
-	Item i01("nwm", 1, 2);
-	Item i11("nwm", 1, 2);
-	Item i12("nwm", 1, 2);
-	bag.putOnEQ(i1, gamer);
-	bag.putOnEQ(i2, gamer);
-	bag.putOnEQ(i3, gamer);
-	bag.putOnBP(i4);
-	bag.putOnBP(i51);
-	bag.putOnBP(i6);
-	bag.putOnBP(i7);
-	bag.putOnBP(i8);
-	bag.putOnBP(i9);
-	bag.putOnBP(i01);
-	bag.putOnBP(i11);
-	bag.putOnBP(i12);
-	bag.putOnBP(i1);
+	Item i1("nwm", 1, 2,false);
+	Item i2("nwm", 1, 2, false);
+	Item i3("nwm", 1, 2, false);
+	Item i4("nwm", 1, 2, false);
+	Item i51("nwm", 1, 2, false);
+	Item i6("nwm", 1, 2, false);
+	Item i7("nwm", 1, 2, false);
+	Item i8("nwm", 1, 2, false);
+	Item i9("nwm", 1, 2, false);
+	Item i01("nwm", 1, 2, false);
+	Item i11("nwm", 1, 2, false);
+	Item i12("nwm", 1, 2, false);
+	//bag.putOnEQ(i1, gamer);
+	//bag.putOnEQ(i2, gamer);
+	//bag.putOnEQ(i3, gamer);
+	//bag.putOnBP(i4);
+	//bag.putOnBP(i51);
+	//bag.putOnBP(i6);
+	//bag.putOnBP(i7);
+	//bag.putOnBP(i8);
+	//bag.putOnBP(i9);
+	//bag.putOnBP(i01);
+	//bag.putOnBP(i11);
+	//bag.putOnBP(i12);
+	//bag.putOnBP(i1);
 	menu.createGraphicOverlay();
 	menu.createPlayer(gamer);
 
 	do
 	{
-		wpis.readMap();
-		break;
+		menu.playerMenu(gamer,bag);
+		//wpis.readMap();
+		//break;
 		//menu.playerMenu(gamer, bag);
 		//system("cls");
 
