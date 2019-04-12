@@ -47,27 +47,37 @@ vector<string> Bag::info()
 	return data;
 }
 
-bool Bag::sortByType(Item it, Item it2)
-{
-	return it.getBuffType() < it2.getBuffType();
-}
-bool Bag::sortByPower(Item it, Item it2)
-{
-	return it.getBuffPower() < it2.getBuffPower();
-}
+
+
+
+//bool Bag::sortByType(Item it, Item it2)
+//{
+//	return it.getBuffType() < it2.getBuffType();
+//}
+//bool Bag::sortByPower(Item it, Item it2)
+//{
+//	return it.getBuffPower() < it2.getBuffPower();
+//}
 //bool Bag::sortByDressed(Item it, Item it2)
 //{
 //
 //}
+struct myclass {
+	bool operator() (Item it, Item it2) { return it.getBuffType() < it2.getBuffType(); }
+} myobject;
+
+struct myclass2 {
+	bool operator() (Item it, Item it2) { return it.getBuffPower() < it2.getBuffPower(); }
+} myobject2;
 void Bag::sorting(int k)
 {
 	switch (k)
 	{
 	case 1:
-		sort(container.begin(), container.end(),sortByType);
+		sort(container.begin(), container.end(),myobject);
 		break;
 	case 2:
-		sort(container.begin(), container.end(), sortByPower);
+		sort(container.begin(), container.end(), myobject2);
 		break;
 	}
 }
