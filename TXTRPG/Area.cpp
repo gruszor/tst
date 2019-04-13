@@ -22,7 +22,7 @@ Area::Area(int X, int Y, int dir)
 	this->areaName = "losowo";
 	this->areaType = "losowo";
 	this->action = rand()%4;
-	this->eventLevel = rand()%10;					//random difficulty level	
+	this->eventLevel = rand()%10+1;					//random difficulty level	
 	if (dir == 0)									// 0 right, 1 up, 2 left, 3 down
 	{
 		this->posX = X + 1;

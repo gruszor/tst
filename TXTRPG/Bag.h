@@ -17,6 +17,8 @@ public:
 	Bag();
 	Bag(Player *);
 	~Bag();
+	void pushItem(Item it);
+	void eraseItem(int pos);
 	void wearItem(Item);
 	void takeOffItem(Item);
 	Item number2item(int);

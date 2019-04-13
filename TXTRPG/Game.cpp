@@ -12,6 +12,9 @@ Game* Game::getInstance()
 
 	return instance;
 }
+
+
+
 Game::Game()
 {
 
@@ -48,6 +51,67 @@ Area Game::areaMaker(Area& obj,int dir)
 	Area newArea(x, y, dir);
 	return newArea;
 }
+
+Player* Game::NPCmaker(Area obj)
+{
+	srand(time(NULL));
+
+	Player character("random name");
+	Player *npc = &character;
+
+	npc->setEXP(0);
+	npc->setHP(100);
+	npc->setMana(100);
+	npc->setStamina(100);
+	npc->setGold(0);
+
+	npc->setStrenght(0);
+	npc->setDexterity(0);
+	npc->setIntelligence(0);
+	npc->setSpeed(0);
+	npc->setEndurance(0);
+	npc->setCharisma(0);
+	npc->setLuck(0);
+	npc->setSmartness(0);
+	switch (obj.getAction())
+	{
+	case 0:			//nothing
+
+		//really nothing bro
+
+		break;
+	case 1:			//fight
+		npc->setStrenght(rand()%obj.getEventLevel()+1);
+		npc->setDexterity(rand() % obj.getEventLevel() + 1);
+		npc->setSpeed(rand() % obj.getEventLevel() + 1);
+		npc->setEndurance(rand() % obj.getEventLevel() + 1);
+		break;
+	case 2:			//trade
+		npc->setCharisma(rand() % obj.getEventLevel() + 1);
+		npc->setLuck(rand() % obj.getEventLevel() + 1);
+		break;
+	case 3:		//interaction
+		npc->setIntelligence(rand() % obj.getEventLevel() + 1);
+		npc->setSmartness(rand() % obj.getEventLevel() + 1);
+		break;
+	//default:							THROW EXCEPTION SHOULD BE HERE
+	}
+
+	return npc;
+}
+Bag& Game::bagMaker(Area obj)
+{
+	srand(time(NULL));
+
+	Bag bag;
+	Item it1("random item name", rand() % 13, obj.getEventLevel(),false);
+	bag.pushItem(it1);														//a bit temporary
+	return bag;
+}
+
+
+
+
 
 void Game::result2(Player & obj1, Area & obj2)
 {

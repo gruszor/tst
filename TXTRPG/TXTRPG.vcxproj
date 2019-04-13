@@ -122,7 +122,6 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ReadSave.h" />
-    <ClInclude Include="Sorting.h" />
     <ClInclude Include="Statistics.h" />
   </ItemGroup>
   <ItemGroup>
@@ -133,7 +132,6 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ReadSave.cpp" />
-    <ClCompile Include="Sorting.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Statistics.cpp" />
   </ItemGroup>

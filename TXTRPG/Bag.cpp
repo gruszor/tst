@@ -13,7 +13,18 @@ Bag::Bag(Player * pl = nullptr)
 Bag::~Bag()
 {
 }
+void Bag::pushItem(Item it)
+{
+	if (size(container) < capacity)
+	{
+		this->container.push_back(it);
+	}
+}
 
+void Bag::eraseItem(int pos)
+{
+	this->container.erase(container.begin() + pos);
+}
 
 void Bag::wearItem(Item it)
 {
@@ -49,19 +60,6 @@ vector<string> Bag::info()
 
 
 
-
-//bool Bag::sortByType(Item it, Item it2)
-//{
-//	return it.getBuffType() < it2.getBuffType();
-//}
-//bool Bag::sortByPower(Item it, Item it2)
-//{
-//	return it.getBuffPower() < it2.getBuffPower();
-//}
-//bool Bag::sortByDressed(Item it, Item it2)
-//{
-//
-//}
 struct myclass {
 	bool operator() (Item it, Item it2) { return it.getBuffType() < it2.getBuffType(); }
 } myobject;
@@ -69,6 +67,13 @@ struct myclass {
 struct myclass2 {
 	bool operator() (Item it, Item it2) { return it.getBuffPower() < it2.getBuffPower(); }
 } myobject2;
+
+struct myclass3 {
+	bool operator() (Item it, Item it2) { return it.getName() < it2.getName(); }   //comparing strings (?)
+} myobject3;
+
+
+
 void Bag::sorting(int k)
 {
 	switch (k)
@@ -78,6 +83,9 @@ void Bag::sorting(int k)
 		break;
 	case 2:
 		sort(container.begin(), container.end(), myobject2);
+		break;
+	case 3:
+		sort(container.begin(), container.end(), myobject3);
 		break;
 	}
 }
