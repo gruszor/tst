@@ -18,5 +18,5 @@ void Player::setName(string name)
 }
 string Player::getName()
 {
-	return Name;
+	return this->Name;
 }

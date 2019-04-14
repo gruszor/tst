@@ -3,6 +3,7 @@
 #include <iostream>
 #include <conio.h>
 
+#include "Game.h"
 #include "Bag.h"
 #include "Player.h"
 #include "Area.h"
@@ -18,12 +19,9 @@ public:
 	void createGraphicOverlay();
 	void createInfoBar(Player & gracz, Area & obj);
 	string pressButton(string, string);
-	void map();
+	Area map(Area prevArea, Game game);
 	void playerMenu(Player & obj, Bag & bag);
 	void txt();
-	void fight(Player &, Player &);
-	void nothing();
-	void trade();
-	void speak();
+	void actionManager(Area &obj, Player &gamer, Game game, Bag &plEq);
 };
 

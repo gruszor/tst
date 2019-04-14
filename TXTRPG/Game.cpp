@@ -13,8 +13,6 @@ Game* Game::getInstance()
 	return instance;
 }
 
-
-
 Game::Game()
 {
 
@@ -81,24 +79,26 @@ Player* Game::NPCmaker(Area obj)
 
 		break;
 	case 1:			//fight
-		npc->setStrenght(rand()%obj.getEventLevel()+1);
-		npc->setDexterity(rand() % obj.getEventLevel() + 1);
-		npc->setSpeed(rand() % obj.getEventLevel() + 1);
-		npc->setEndurance(rand() % obj.getEventLevel() + 1);
+		npc->setStrenght(rand()%(obj.getEventLevel()+1));
+		npc->setDexterity(rand() % (obj.getEventLevel() + 1));
+		npc->setSpeed(rand() % (obj.getEventLevel() + 1));
+		npc->setEndurance(rand() % (obj.getEventLevel() + 1));
 		break;
 	case 2:			//trade
-		npc->setCharisma(rand() % obj.getEventLevel() + 1);
-		npc->setLuck(rand() % obj.getEventLevel() + 1);
+		npc->setCharisma(rand() % (obj.getEventLevel() + 1));
+		npc->setLuck(rand() % (obj.getEventLevel() + 1));
 		break;
 	case 3:		//interaction
-		npc->setIntelligence(rand() % obj.getEventLevel() + 1);
-		npc->setSmartness(rand() % obj.getEventLevel() + 1);
+		npc->setIntelligence(rand() % (obj.getEventLevel() + 1));
+		npc->setSmartness(rand() % (obj.getEventLevel() + 1));
 		break;
 	//default:							THROW EXCEPTION SHOULD BE HERE
 	}
 
 	return npc;
 }
+
+
 Bag& Game::bagMaker(Area obj)
 {
 	srand(time(NULL));
@@ -110,43 +110,96 @@ Bag& Game::bagMaker(Area obj)
 }
 
 
-
-
-
-void Game::result2(Player & obj1, Area & obj2)
+bool Game::fight(Player &gamer, Player *npc, int actionType)
 {
 	srand(time(NULL));
 
-	Player nonpl("cdsa");
+	int difficulty = 3;								//SHOULD BE A CLASS POLE 
+	int bonus = rand() % difficulty -1;
 
-	nonpl.setEXP(0);
-	nonpl.setHP(100);
-	nonpl.setMana(100);
-	nonpl.setStamina(100);
-	nonpl.setGold(rand()%obj2.getEventLevel());
-	nonpl.setStrenght(rand() % obj2.getEventLevel());
-	nonpl.setDexterity(rand() % obj2.getEventLevel());
-	nonpl.setIntelligence(rand() % obj2.getEventLevel());
-	nonpl.setSpeed(rand() % obj2.getEventLevel());
-	nonpl.setEndurance(rand() % obj2.getEventLevel());
-	nonpl.setCharisma(rand() % obj2.getEventLevel());
-	nonpl.setLuck(rand() % obj2.getEventLevel());
-	nonpl.setSmartness(rand() % obj2.getEventLevel());
+	bool escapeSuccess = false;
 
-	//switch (obj2.getAction())
-	//{
-	//case 0:
-	//	InOut::nothing();
-	//	break;
-	//case 1:
-	//	InOut::fight(obj1,nonpl);
-	//		break;
-	//case 2:
-	//	InOut::trade();
-	//	break;
-	//case 3:
-	//	InOut::speak();
-	//	break;
-	//}
+	switch (actionType)
+	{
+	case 0:										// melee combat
+		if (bonus >= 0)
+		{
+			if (gamer.getStrenght() + gamer.getLuck() >= npc->getStrenght())
+			{
+				npc->setHP((npc->getHP())-(gamer.getStrenght() + gamer.getLuck() - npc->getStrenght() + bonus));
+			}
+			else gamer.setHP((gamer.getHP()) - (npc->getStrenght() - gamer.getStrenght() + bonus));
+		}
+		else 
+		{
+			if (npc->getStrenght() + npc->getLuck() >= gamer.getStrenght())
+			{
+				gamer.setHP((gamer.getHP()) - (npc->getStrenght() + npc->getLuck() - gamer.getStrenght() + bonus));
+			}
+			else npc->setHP((npc->getHP()) - (gamer.getStrenght() - npc->getStrenght() + bonus));
+		}
+		break;
+	case 1:											//fight at a distance
+		if (bonus >= 0)
+		{
+			if (gamer.getDexterity() + gamer.getLuck() >= npc->getDexterity())
+			{
+				npc->setHP((npc->getHP()) - (gamer.getDexterity() + gamer.getLuck() - npc->getDexterity() + bonus));
+			}
+			else gamer.setHP((gamer.getHP()) - (npc->getDexterity() - gamer.getDexterity() + bonus));
+		}
+		else
+		{
+			if (npc->getDexterity() + npc->getLuck() >= gamer.getDexterity())
+			{
+				gamer.setHP((gamer.getHP()) - (npc->getDexterity() + npc->getLuck() - gamer.getDexterity() + bonus));
+			}
+			else npc->setHP((npc->getHP()) - (gamer.getDexterity() - npc->getDexterity() + bonus));
+		}
+		break;
+	case 2:											//defending
+		if (bonus >= 0)
+		{
+			if (gamer.getEndurance() + gamer.getLuck() >= npc->getEndurance())
+			{
+				npc->setHP((npc->getHP()) - (gamer.getEndurance() + gamer.getLuck() - npc->getEndurance() + bonus));
+			}
+			else gamer.setHP((gamer.getHP()) - (npc->getEndurance() - gamer.getEndurance() + bonus));
+		}
+		else
+		{
+			if (npc->getEndurance() + npc->getLuck() >= gamer.getEndurance())
+			{
+				gamer.setHP((gamer.getHP()) - (npc->getEndurance() + npc->getLuck() - gamer.getEndurance() + bonus));
+			}
+			else npc->setHP((npc->getHP()) - (gamer.getEndurance() - npc->getEndurance() + bonus));
+		}
+		break;
+	case 3:
+		if (gamer.getLuck() + gamer.getSpeed() >= npc->getSpeed()) escapeSuccess = true;
+		else gamer.setHP((gamer.getHP()) - (npc->getSpeed() + npc->getLuck()));
+		break;
+	}
+
+
+	if (!npc->getHP() || !gamer.getHP() || escapeSuccess)
+	{
+		gamer.setEXP(rand());
+		return false;
+	}
+	else return true;
 }
 
+
+bool Game::trade(Player &gamer, Player *npc, int actionType, Bag & npcEq, Bag &playerEq)
+{
+	//cout << "trading" << endl;
+	if (actionType) return false;
+	else return true;
+}
+bool Game::speak(Player &gamer, Player *npc, int actionType)
+{
+	//cout << "speaking" << endl;
+	if (actionType) return false;
+	else return true;
+}

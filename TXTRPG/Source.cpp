@@ -1,5 +1,5 @@
-//#include "Bag.h"
-//#include "Item.h"
+#include "Bag.h"
+#include "Item.h"
 #include "ReadSave.h"
 #include "Player.h"
 #include "Statistics.h"
@@ -16,25 +16,26 @@ int main()
 {
 
 	Game* round = Game::getInstance();
-
 	InOut menu;
 	Player gamer("xyz");
+	Player *tmp = &gamer;
+	Bag playerEq(tmp);
 	Area newArea;						//initialization location
 
-	ReadSave wpis;						//TEMPORARY
-	Bag bag;
-	Item i1("nwm", 1, 2,false);
-	Item i2("nwm", 1, 2, false);
-	Item i3("nwm", 1, 2, false);
-	Item i4("nwm", 1, 2, false);
-	Item i51("nwm", 1, 2, false);
-	Item i6("nwm", 1, 2, false);
-	Item i7("nwm", 1, 2, false);
-	Item i8("nwm", 1, 2, false);
-	Item i9("nwm", 1, 2, false);
-	Item i01("nwm", 1, 2, false);
-	Item i11("nwm", 1, 2, false);
-	Item i12("nwm", 1, 2, false);
+	//ReadSave wpis;						//TEMPORARY
+	//Bag bag;
+	//Item i1("nwm", 1, 2,false);
+	//Item i2("nwm", 1, 2, false);
+	//Item i3("nwm", 1, 2, false);
+	//Item i4("nwm", 1, 2, false);
+	//Item i51("nwm", 1, 2, false);
+	//Item i6("nwm", 1, 2, false);
+	//Item i7("nwm", 1, 2, false);
+	//Item i8("nwm", 1, 2, false);
+	//Item i9("nwm", 1, 2, false);
+	//Item i01("nwm", 1, 2, false);
+	//Item i11("nwm", 1, 2, false);
+	//Item i12("nwm", 1, 2, false);
 	//bag.putOnEQ(i1, gamer);
 	//bag.putOnEQ(i2, gamer);
 	//bag.putOnEQ(i3, gamer);
@@ -53,7 +54,11 @@ int main()
 
 	do
 	{
-		menu.playerMenu(gamer,bag);
+
+		menu.actionManager(newArea, gamer, *round, playerEq);
+		//Area prevArea = newArea;
+		newArea = menu.map(newArea, *round);
+		//menu.playerMenu(gamer,bag);
 		//wpis.readMap();
 		//break;
 		//menu.playerMenu(gamer, bag);

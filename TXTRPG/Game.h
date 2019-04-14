@@ -4,11 +4,14 @@
 #include"InOut.h"
 #include "Bag.h"
 #include "Item.h"
+#include <map>
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 
-class Game : public InOut
+
+
+class Game /*: public InOut*/
 {
 	static Game* instance;
 	Game();
@@ -23,6 +26,9 @@ public:
 	Area areaMaker(Area &,int);
 	Player* NPCmaker(Area);
 	Bag &bagMaker(Area);
+	bool fight(Player &gamer, Player *npc, int actionType);
+	bool trade(Player &gamer, Player *npc, int actionType, Bag & npcEq, Bag &playerEq);
+	bool speak(Player &gamer, Player *npc, int actionType);
 };
 
 

@@ -94,21 +94,129 @@ string InOut::pressButton(string button, string info)
 {
 	return " [" + button + "] - " + info;
 }
+void InOut::actionManager(Area &obj, Player &gamer, Game game, Bag &plEq)
+{
+	int pressKey=0;
+	std::map<int, int> actionKeys;
+	actionKeys['w'] = 0;
+	actionKeys['s'] = 1;
+	actionKeys['a'] = 2;
+	actionKeys['d'] = 3;
+
+
+	Player *npc = game.NPCmaker(obj);
+	Bag &npcEq = game.bagMaker(obj);
+	
+	switch (obj.getAction())
+	{
+	case 0:
+		do
+		{
+			system("cls");
+			createGraphicOverlay();
+
+			//cout << gamer.getName() << "          " << npc->getName() << endl;
+			cout << gamer.getHP() << "          " << npc->getHP() << endl;
+			cout << gamer.getStamina() << "          " << npc->getStamina() << endl;
+			cout << gamer.getMana() << "          " << npc->getMana() << endl;
+
+
+			cout << "speaking" << endl;
+
+
+			cout << "\n==============================================================================" << endl;
+			cout << "You are speaking right now" << endl;
+			cout << "Press: " << pressButton("w", "stop speaking") << pressButton("s", "continue speaking") << endl;
+			pressKey = _getch();
+		} while (!game.speak(gamer, npc, actionKeys[pressKey]));
+	case 1:
+		do
+		{
+			system("cls");
+			createGraphicOverlay();
+			//cout << gamer.getName() << "          " << npc->getName() << endl;
+			cout << gamer.getHP() << "          " << npc->getHP() << endl;
+			cout << gamer.getStamina() << "          " << npc->getStamina() << endl;
+			cout << gamer.getMana() << "          " << npc->getMana() << endl;
+
+			cout << "\n==============================================================================" << endl;
+			cout << "You are during fightt right now!" << endl;
+			cout << "Press: " << pressButton("w", "melee") << pressButton("s", "distance") << pressButton("a", "escape") << pressButton("d", "defend") << endl;
+			pressKey = _getch();
+		} while (!game.fight(gamer, npc, actionKeys[pressKey]));
+		break;
+	case 2:
+		do
+		{
+			system("cls");
+			createGraphicOverlay();
+
+			//cout << gamer.getName() << "          " << npc->getName() << endl;
+			cout << gamer.getHP() << "          " << npc->getHP() << endl;
+			cout << gamer.getStamina() << "          " << npc->getStamina() << endl;
+			cout << gamer.getMana() << "          " << npc->getMana() << endl;
+
+
+			cout << "trading" << endl;
+
+
+			cout << "\n==============================================================================" << endl;
+			cout << "You are during trading right now!" << endl;
+			cout << "Press: " << pressButton("w", "stop trading") << pressButton("s", "continue trading")<< endl;
+			pressKey = _getch();
+		} while (!game.trade(gamer, npc, actionKeys[pressKey], npcEq, plEq));
+		break;
+	case 3:
+		do
+		{
+			system("cls");
+			createGraphicOverlay();
+
+			//cout << gamer.getName() << "          " << npc->getName() << endl;
+			cout << gamer.getHP() << "          " << npc->getHP() << endl;
+			cout << gamer.getStamina() << "          " << npc->getStamina() << endl;
+			cout << gamer.getMana() << "          " << npc->getMana() << endl;
+
+
+			cout << "speaking" << endl;
+
+
+			cout << "\n==============================================================================" << endl;
+			cout << "You are speaking right now" << endl;
+			cout << "Press: " << pressButton("w", "stop speaking") << pressButton("s", "continue speaking") << endl;
+			pressKey = _getch();
+		} while (!game.speak(gamer, npc, actionKeys[pressKey]));
+	}
+}
 
 
 
-//void InOut::map()
-//{
-//	system("cls");
-//
-//	createGraphicOverlay();
-//	createInfoBar(gamer, newArea);
-//
-//	Area prevArea = newArea;
-//	newArea = (*round).areaMaker(prevArea, dir);
-//
-//}
 
+
+
+
+
+Area InOut::map(Area prevArea,Game game)
+{
+	int pressKey = 0;
+	std::map<int, int> actionKeys;
+	actionKeys['d'] = 0;
+	actionKeys['w'] = 1;
+	actionKeys['a'] = 2;
+	actionKeys['s'] = 3;
+
+	system("cls");
+
+	createGraphicOverlay();
+//	createInfoBar(gamer, prevArea);
+	cout << "map" << endl;					//GRAPHIC INTERPRETATION SOON
+	cout << "\n==============================================================================" << endl;
+	cout << "You are traveling right now!" << endl;
+	cout << "Press: " << pressButton("w", "up") << pressButton("s", "down") << pressButton("a", "left") << pressButton("d", "right") << endl;
+	pressKey = _getch();
+	return game.areaMaker(prevArea, actionKeys[pressKey]);
+
+}
 void InOut::playerMenu(Player & obj,Bag & bag )
 {
 	//int j = 0;
@@ -191,21 +299,3 @@ void InOut::playerMenu(Player & obj,Bag & bag )
 
 	//} while (!((pressKey == 'i') || (pressKey == 'p')));
 }
-//void InOut::fight(Player &obj1, Player &obj2)
-//{
-//	int pressKey;
-//
-//	do {
-//		system("cls");
-//		createGraphicOverlay();
-//		pressKey = _getch();
-//		switch (pressKey)
-//		{
-//		case 1:
-//			break;
-//		case 2:
-//			break;
-//
-//		}
-//	} while (pressKey||);
-//}
