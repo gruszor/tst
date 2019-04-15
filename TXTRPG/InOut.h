@@ -19,9 +19,8 @@ public:
 	void createGraphicOverlay();
 	void createInfoBar(Player & gracz, Area & obj);
 	string pressButton(string, string);
-	Area map(Area prevArea, Game game);
-	void playerMenu(Player & obj, Bag & bag);
-	void txt();
+	Area mapManager(Area prevArea, Game game);
 	void actionManager(Area &obj, Player &gamer, Game game, Bag &plEq);
+	void bagManager(Bag &eq);
 };
 

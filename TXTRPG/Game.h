@@ -24,8 +24,8 @@ public:
 	void result2(Player &, Area &);
 	void result(Player &,Area &);
 	Area areaMaker(Area &,int);
-	Player* NPCmaker(Area);
-	Bag &bagMaker(Area);
+	Player NPCmaker(Area);
+	Bag &bagMaker(Area obj, Player * npc);
 	bool fight(Player &gamer, Player *npc, int actionType);
 	bool trade(Player &gamer, Player *npc, int actionType, Bag & npcEq, Bag &playerEq);
 	bool speak(Player &gamer, Player *npc, int actionType);

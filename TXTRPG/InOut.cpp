@@ -96,6 +96,9 @@ string InOut::pressButton(string button, string info)
 }
 void InOut::actionManager(Area &obj, Player &gamer, Game game, Bag &plEq)
 {
+	bool tmp;
+	bool &condition=tmp;
+
 	int pressKey=0;
 	std::map<int, int> actionKeys;
 	actionKeys['w'] = 0;
@@ -104,10 +107,16 @@ void InOut::actionManager(Area &obj, Player &gamer, Game game, Bag &plEq)
 	actionKeys['d'] = 3;
 
 
-	Player *npc = game.NPCmaker(obj);
-	Bag &npcEq = game.bagMaker(obj);
+	Player npc(game.NPCmaker(obj));
+	Player*npcPointer = &npc;
+	Bag &npcEq = game.bagMaker(obj,npcPointer);
 	
+
+
+
 	switch (obj.getAction())
+
+
 	{
 	case 0:
 		do
@@ -116,34 +125,36 @@ void InOut::actionManager(Area &obj, Player &gamer, Game game, Bag &plEq)
 			createGraphicOverlay();
 
 			//cout << gamer.getName() << "          " << npc->getName() << endl;
-			cout << gamer.getHP() << "          " << npc->getHP() << endl;
-			cout << gamer.getStamina() << "          " << npc->getStamina() << endl;
-			cout << gamer.getMana() << "          " << npc->getMana() << endl;
+			cout << gamer.getHP() << "          " << npc.getHP() << endl;
+			cout << gamer.getStamina() << "          " << npc.getStamina() << endl;
+			cout << gamer.getMana() << "          " << npc.getMana() << endl;
 
 
-			cout << "speaking" << endl;
+			cout << "in fact there is nothing here" << endl;
 
 
 			cout << "\n==============================================================================" << endl;
-			cout << "You are speaking right now" << endl;
+			cout << "You are doing nothing right now" << endl;
 			cout << "Press: " << pressButton("w", "stop speaking") << pressButton("s", "continue speaking") << endl;
 			pressKey = _getch();
-		} while (!game.speak(gamer, npc, actionKeys[pressKey]));
+			condition = game.speak(gamer, npcPointer, actionKeys[pressKey]);
+		} while (condition);
 	case 1:
 		do
 		{
 			system("cls");
 			createGraphicOverlay();
-			//cout << gamer.getName() << "          " << npc->getName() << endl;
-			cout << gamer.getHP() << "          " << npc->getHP() << endl;
-			cout << gamer.getStamina() << "          " << npc->getStamina() << endl;
-			cout << gamer.getMana() << "          " << npc->getMana() << endl;
+			//cout << gamer.getName() << "          " << npc.getName() << endl;
+			cout << gamer.getHP() << "          " << npc.getHP() << endl;
+			cout << gamer.getStamina() << "          " << npc.getStamina() << endl;
+			cout << gamer.getMana() << "          " << npc.getMana() << endl;
 
 			cout << "\n==============================================================================" << endl;
 			cout << "You are during fightt right now!" << endl;
-			cout << "Press: " << pressButton("w", "melee") << pressButton("s", "distance") << pressButton("a", "escape") << pressButton("d", "defend") << endl;
+			cout << "Press: " << pressButton("w", "melee") << pressButton("s", "distance") << pressButton("a", "defend") << pressButton("d", "escape") << endl;
 			pressKey = _getch();
-		} while (!game.fight(gamer, npc, actionKeys[pressKey]));
+			condition = game.fight(gamer, npcPointer, actionKeys[pressKey]);
+		} while (condition);
 		break;
 	case 2:
 		do
@@ -151,10 +162,10 @@ void InOut::actionManager(Area &obj, Player &gamer, Game game, Bag &plEq)
 			system("cls");
 			createGraphicOverlay();
 
-			//cout << gamer.getName() << "          " << npc->getName() << endl;
-			cout << gamer.getHP() << "          " << npc->getHP() << endl;
-			cout << gamer.getStamina() << "          " << npc->getStamina() << endl;
-			cout << gamer.getMana() << "          " << npc->getMana() << endl;
+			//cout << gamer.getName() << "          " << npc.getName() << endl;
+	/*		cout << gamer.getHP() << "          " << npc.getHP() << endl;
+			cout << gamer.getStamina() << "          " << npc.getStamina() << endl;
+			cout << gamer.getMana() << "          " << npc.getMana() << endl;*/
 
 
 			cout << "trading" << endl;
@@ -164,7 +175,8 @@ void InOut::actionManager(Area &obj, Player &gamer, Game game, Bag &plEq)
 			cout << "You are during trading right now!" << endl;
 			cout << "Press: " << pressButton("w", "stop trading") << pressButton("s", "continue trading")<< endl;
 			pressKey = _getch();
-		} while (!game.trade(gamer, npc, actionKeys[pressKey], npcEq, plEq));
+			condition = game.trade(gamer, npcPointer, actionKeys[pressKey], npcEq, plEq);
+		} while (condition);
 		break;
 	case 3:
 		do
@@ -172,10 +184,10 @@ void InOut::actionManager(Area &obj, Player &gamer, Game game, Bag &plEq)
 			system("cls");
 			createGraphicOverlay();
 
-			//cout << gamer.getName() << "          " << npc->getName() << endl;
-			cout << gamer.getHP() << "          " << npc->getHP() << endl;
-			cout << gamer.getStamina() << "          " << npc->getStamina() << endl;
-			cout << gamer.getMana() << "          " << npc->getMana() << endl;
+			//cout << gamer.getName() << "          " << npc.getName() << endl;
+			/*cout << gamer.getHP() << "          " << npc.getHP() << endl;
+			cout << gamer.getStamina() << "          " << npc.getStamina() << endl;
+			cout << gamer.getMana() << "          " << npc.getMana() << endl;*/
 
 
 			cout << "speaking" << endl;
@@ -185,117 +197,104 @@ void InOut::actionManager(Area &obj, Player &gamer, Game game, Bag &plEq)
 			cout << "You are speaking right now" << endl;
 			cout << "Press: " << pressButton("w", "stop speaking") << pressButton("s", "continue speaking") << endl;
 			pressKey = _getch();
-		} while (!game.speak(gamer, npc, actionKeys[pressKey]));
+			condition = game.speak(gamer, npcPointer, actionKeys[pressKey]);
+		} while (condition);
 	}
 }
-
-
-
-
-
-
-
-
-Area InOut::map(Area prevArea,Game game)
+void InOut::bagManager(Bag &eq)
 {
+	std::map<int, int> sortingType;
+	sortingType['j'] = 1;
+	sortingType['k'] = 2;
+	sortingType['l'] = 3;
+
 	int pressKey = 0;
+	int j = 0;
+
+	do
+	{
+		vector<string> bagStat(eq.info());
+		system("cls");
+		createGraphicOverlay();
+		cout << "buff power//buff type//dressed or not//name" << endl;
+		for (int i = 0; i < size(bagStat); i++)
+		{
+			if (j == i)
+			{
+				cout << "<"<<bagStat[i][0] << " / " << bagStat[i][1]<<" / "<< bagStat[i][2]<<" / ";
+				for (int k = 3; k < size(bagStat[i]); k++ ) cout<<bagStat[i][k];
+				cout<<">"<<endl;
+			}
+			else
+			{
+				cout<< bagStat[i][0] << " / " << bagStat[i][1] << " / " << bagStat[i][2] << " / ";
+				for (int k = 3; k < size(bagStat[i]); k++) cout << bagStat[i][k];
+				cout << endl;
+			}
+		}
+
+		cout << "\n==============================================================================" << endl;
+		cout << "Here is your bag, you can wear and take off your items " << endl;
+		cout << "Press: " << pressButton("w", "up") << pressButton("s", "down") << pressButton("a", "take off") << pressButton("d", "wear") << pressButton("c", "close this window") << endl;
+		cout << "       " << pressButton("j", "sort by buff type") << pressButton("k", "sort by buff power") << pressButton("l", "sort by name")<< endl;
+		cout << "       " << pressButton("r", "remove item") << endl;
+
+		pressKey = _getch();
+
+		if (pressKey == 'd')
+		{
+			eq.wearItem(eq.number2item(j));
+		}
+		else if (pressKey == 'a')
+		{
+			eq.takeOffItem(eq.number2item(j));
+		}
+		else if (pressKey == 'w')
+		{
+			if (j > 0)j--;
+			else j = size(bagStat);
+		}
+		else if (pressKey == 's')
+		{
+			if (j < size(bagStat))j++;
+			else j = 0;
+		}
+		else if ((pressKey == 'j')||(pressKey == 'k')||(pressKey == 'l'))
+		{
+			eq.sorting(sortingType[pressKey]);
+		}
+		else if (pressKey == 'r')
+		{
+			eq.eraseItem(j);
+		}
+	} while (pressKey != 'c');
+}
+Area InOut::mapManager(Area prevArea,Game game)
+{
+	Area &tmp = prevArea;
+	int pressKey = 0;
+	int i=0;
 	std::map<int, int> actionKeys;
 	actionKeys['d'] = 0;
 	actionKeys['w'] = 1;
 	actionKeys['a'] = 2;
 	actionKeys['s'] = 3;
 
-	system("cls");
 
-	createGraphicOverlay();
-//	createInfoBar(gamer, prevArea);
-	cout << "map" << endl;					//GRAPHIC INTERPRETATION SOON
-	cout << "\n==============================================================================" << endl;
-	cout << "You are traveling right now!" << endl;
-	cout << "Press: " << pressButton("w", "up") << pressButton("s", "down") << pressButton("a", "left") << pressButton("d", "right") << endl;
-	pressKey = _getch();
-	return game.areaMaker(prevArea, actionKeys[pressKey]);
+	do {
+		system("cls");
+
+		createGraphicOverlay();
+		//	createInfoBar(gamer, prevArea);
+		cout << "map" <<i++<< endl;					//GRAPHIC INTERPRETATION SOON
+		cout << "\n==============================================================================" << endl;
+		cout << "You are traveling right now!" << endl;
+		cout << "Press: " << pressButton("w", "up") << pressButton("s", "down") << pressButton("a", "left") << pressButton("d", "right") << pressButton("c", "close") << endl;
+		pressKey = _getch();
+		tmp = game.areaMaker(tmp, actionKeys[pressKey]);
+
+	} while (pressKey != 'c');
+	return tmp;
 
 }
-void InOut::playerMenu(Player & obj,Bag & bag )
-{
-	//int j = 0;
-	//int pressKey = 0;
-	//do
-	//{
-	//	system("cls");
-	//	createGraphicOverlay();
 
-
-	//	for (int i = 0; i < size(bag.getVectorEQ()); i++)
-	//	{
-	//		if (i == j)
-	//			cout << obj.statNames[i] << "<-->" << obj.getStat(i) << "    /////    <" << (bag.getItemEQ(i)).getName() << " " << (bag.getItemEQ(i)).getBuffType() << "/" << (bag.getItemEQ(i)).getBuffPower() << ">" << endl;
-	//		else
-	//			cout << obj.statNames[i] << "<-->" << obj.getStat(i) << "    /////    " << (bag.getItemEQ(i)).getName() << " " << (bag.getItemEQ(i)).getBuffType() << "/" << (bag.getItemEQ(i)).getBuffPower() << endl;
-	//	}
-	//	for (int i = size(bag.getVectorEQ()); i < size(bag.getVectorEQ())+size(bag.getVectorBP()); i++)
-	//	{
-	//		if (i == j)
-	//			cout << obj.statNames[i] << "<-->" << obj.getStat(i) << "    /////    <" << (bag.getItemBP(i - 3)).getName() << " " << (bag.getItemBP(i - 3)).getBuffType() << "/" << (bag.getItemBP(i - 3)).getBuffPower() << ">" << endl;
-	//		else
-	//			cout << obj.statNames[i] << "<-->" << obj.getStat(i) << "    /////    " << (bag.getItemBP(i - 3)).getName() << " " << (bag.getItemBP(i - 3)).getBuffType() << "/" << (bag.getItemBP(i - 3)).getBuffPower() << endl;
-	//	}
-
-
-	//	cout << "\n==============================================================================" << endl;
-	//	cout << "Remember if you throw away your item it will disapear forever!" << endl;
-	//	cout << "Press: " << pressButton("w", "up") << pressButton("s", "down") << pressButton("a", "throw item away!") << pressButton("d", "move to EQ/BP") << pressButton("i", "map") << pressButton("p", "action") << endl;
-
-
-	//	pressKey = _getch();
-
-	//	if (pressKey == 's')
-	//	{
-	//		if (j == 12) j = 0;
-	//		else j++;
-	//	}
-
-	//	else if (pressKey == 'w')
-	//	{
-	//		if (j == 0)j = 12;
-	//		else j--;
-	//	}
-
-	//	else if ((pressKey == 'a') && ((!((bag.getVectorBP()).empty())) && (!((bag.getVectorEQ()).empty()))))
-	//	{
-	//		if ((j >= 0) && (j < 3))
-	//		{
-	//			bag.removeEQ(j,obj);
-	//		}
-	//		else bag.removeBP(j - 3);
-	//	}
-
-
-	//	else if (pressKey == 'd')
-	//	{
-	//		if ((j >= 0) && (j < 3))
-	//		{
-	//			if (!(((bag.getVectorEQ()).size()) < 3))cout << "no coz :(" << endl;
-	//			else
-	//			{
-	//				Item tmp(bag.getItemEQ(j));
-	//				(bag.getVectorEQ()).push_back(tmp);
-	//				(bag.getVectorEQ()).erase((bag.getVectorEQ()).begin() + j);
-	//			}
-
-	//		}
-	//		else
-	//		{
-	//			if (!(((bag.getVectorBP()).size()) < 10))cout << "no coz :(" << endl;
-	//			else
-	//			{
-	//				Item tmp(bag.getItemBP(j-3));
-	//				(bag.getVectorBP()).push_back(tmp);
-	//				(bag.getVectorBP()).erase((bag.getVectorBP()).begin() + (j-3));
-	//			}
-	//		}
-	//	}
-
-	//} while (!((pressKey == 'i') || (pressKey == 'p')));
-}

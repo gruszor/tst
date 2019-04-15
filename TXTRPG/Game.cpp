@@ -50,7 +50,7 @@ Area Game::areaMaker(Area& obj,int dir)
 	return newArea;
 }
 
-Player* Game::NPCmaker(Area obj)
+Player Game::NPCmaker(Area obj)
 {
 	srand(time(NULL));
 
@@ -95,15 +95,15 @@ Player* Game::NPCmaker(Area obj)
 	//default:							THROW EXCEPTION SHOULD BE HERE
 	}
 
-	return npc;
+	return *npc;
 }
 
 
-Bag& Game::bagMaker(Area obj)
+Bag& Game::bagMaker(Area obj,Player * npc)
 {
 	srand(time(NULL));
 
-	Bag bag;
+	Bag bag(npc,10);
 	Item it1("random item name", rand() % 13, obj.getEventLevel(),false);
 	bag.pushItem(it1);														//a bit temporary
 	return bag;
@@ -176,13 +176,13 @@ bool Game::fight(Player &gamer, Player *npc, int actionType)
 		}
 		break;
 	case 3:
-		if (gamer.getLuck() + gamer.getSpeed() >= npc->getSpeed()) escapeSuccess = true;
+		if (gamer.getLuck() + gamer.getSpeed() > npc->getSpeed()) escapeSuccess = true;
 		else gamer.setHP((gamer.getHP()) - (npc->getSpeed() + npc->getLuck()));
 		break;
 	}
 
 
-	if (!npc->getHP() || !gamer.getHP() || escapeSuccess)
+	if (!(npc->getHP()>=0) || !(gamer.getHP()>=0) || escapeSuccess)
 	{
 		gamer.setEXP(rand());
 		return false;
@@ -194,12 +194,12 @@ bool Game::fight(Player &gamer, Player *npc, int actionType)
 bool Game::trade(Player &gamer, Player *npc, int actionType, Bag & npcEq, Bag &playerEq)
 {
 	//cout << "trading" << endl;
-	if (actionType) return false;
-	else return true;
+	if (actionType) return true;
+	else return false;
 }
 bool Game::speak(Player &gamer, Player *npc, int actionType)
 {
 	//cout << "speaking" << endl;
-	if (actionType) return false;
-	else return true;
+	if (actionType) return true;
+	else return false;
 }

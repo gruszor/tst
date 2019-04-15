@@ -23,41 +23,48 @@ int main()
 	Area newArea;						//initialization location
 
 	//ReadSave wpis;						//TEMPORARY
-	//Bag bag;
-	//Item i1("nwm", 1, 2,false);
-	//Item i2("nwm", 1, 2, false);
-	//Item i3("nwm", 1, 2, false);
-	//Item i4("nwm", 1, 2, false);
-	//Item i51("nwm", 1, 2, false);
-	//Item i6("nwm", 1, 2, false);
-	//Item i7("nwm", 1, 2, false);
-	//Item i8("nwm", 1, 2, false);
-	//Item i9("nwm", 1, 2, false);
-	//Item i01("nwm", 1, 2, false);
-	//Item i11("nwm", 1, 2, false);
-	//Item i12("nwm", 1, 2, false);
-	//bag.putOnEQ(i1, gamer);
-	//bag.putOnEQ(i2, gamer);
-	//bag.putOnEQ(i3, gamer);
-	//bag.putOnBP(i4);
-	//bag.putOnBP(i51);
-	//bag.putOnBP(i6);
-	//bag.putOnBP(i7);
-	//bag.putOnBP(i8);
-	//bag.putOnBP(i9);
-	//bag.putOnBP(i01);
-	//bag.putOnBP(i11);
-	//bag.putOnBP(i12);
-	//bag.putOnBP(i1);
+	Bag bag(tmp,20);
+	Item i1("nwm0", 1, 2,false);
+	Item i2("nwm1", 2, 2, false);
+	Item i3("nwm2", 3, 9, false);
+	Item i4("nwm3", 4, 9, false);
+	Item i51("nwm4", 5, 8, false);
+	Item i6("nwm5", 6, 7, false);
+	Item i7("nwm6", 7, 6, false);
+	Item i8("nwm7", 8, 5, false);
+	Item i9("nwm8", 9, 4, false);
+	Item i01("nwm9", 1, 3, false);
+	Item i11("nwm10", 1, 2, false);
+	Item i12("nwm11", 1, 1, false);
+	bag.pushItem(i1);
+	bag.pushItem(i2);
+	bag.pushItem(i3);
+	bag.pushItem(i4);
+	bag.pushItem(i51);
+	bag.pushItem(i6);
+	bag.pushItem(i7);
+	bag.pushItem(i8);
+	bag.pushItem(i9);
+	bag.pushItem(i01);
+	bag.pushItem(i11);
+	bag.pushItem(i12);
 	menu.createGraphicOverlay();
 	menu.createPlayer(gamer);
 
 	do
 	{
+		//menu.bagManager(bag);
+
+
 
 		menu.actionManager(newArea, gamer, *round, playerEq);
-		//Area prevArea = newArea;
-		newArea = menu.map(newArea, *round);
+		Area prevArea = newArea;
+		menu.bagManager(bag);
+		newArea = menu.mapManager(prevArea, *round);
+
+
+
+
 		//menu.playerMenu(gamer,bag);
 		//wpis.readMap();
 		//break;

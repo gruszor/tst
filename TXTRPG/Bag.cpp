@@ -5,9 +5,10 @@ using namespace std;
 Bag::Bag()
 {
 }
-Bag::Bag(Player * pl = nullptr)
+Bag::Bag(Player * pl , int cap)
 {
-	owner = pl;
+	this->owner = pl;
+	this->capacity = cap;
 }
 
 Bag::~Bag()
@@ -26,7 +27,7 @@ void Bag::eraseItem(int pos)
 	this->container.erase(container.begin() + pos);
 }
 
-void Bag::wearItem(Item it)
+void Bag::wearItem(Item &it)
 {
 	if (!it.getDressed())
 	{
@@ -34,7 +35,7 @@ void Bag::wearItem(Item it)
 		it.setDressed(true);
 	}
 }
-void Bag::takeOffItem(Item it)
+void Bag::takeOffItem(Item &it)
 {
 	if (it.getDressed())
 	{
@@ -42,9 +43,10 @@ void Bag::takeOffItem(Item it)
 		it.setDressed(false);
 	}
 }
-Item Bag::number2item(int index)
+Item &Bag::number2item(int index)
 {
-	return container[index];
+	Item &tmp = container[index];
+	return tmp;
 }
 vector<string> Bag::info()
 {
@@ -58,21 +60,26 @@ vector<string> Bag::info()
 	return data;
 }
 
-
+int Bag::getCap()
+{
+	return this->capacity;
+}
+void Bag::setCap(int cap)
+{
+	this->capacity = cap;
+}
 
 struct myclass {
-	bool operator() (Item it, Item it2) { return it.getBuffType() < it2.getBuffType(); }
+	bool operator() (Item it, Item it2) { return it.getBuffType() > it2.getBuffType(); }
 } myobject;
 
 struct myclass2 {
-	bool operator() (Item it, Item it2) { return it.getBuffPower() < it2.getBuffPower(); }
+	bool operator() (Item it, Item it2) { return it.getBuffPower() > it2.getBuffPower(); }
 } myobject2;
 
 struct myclass3 {
-	bool operator() (Item it, Item it2) { return it.getName() < it2.getName(); }   //comparing strings (?)
+	bool operator() (Item it, Item it2) { return it.getName() > it2.getName(); }   //comparing strings (?)
 } myobject3;
-
-
 
 void Bag::sorting(int k)
 {
@@ -90,79 +97,3 @@ void Bag::sorting(int k)
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//void Bag::putOnEQ(Item it, Player &obj)
-//{
-//	if(size(equipment)<3)
-//	this->equipment.push_back(it);
-//	obj.setStat(it.getBuffType(), it.getBuffPower());
-//
-//}
-//void Bag::putOnBP(Item it)
-//{
-//	if (size(equipment) < 10)
-//	this->backpack.push_back(it);
-//}
-//void Bag::removeEQ(int x,Player &obj)
-//{
-//	Item it(equipment[x]);
-//	obj.setStat(it.getBuffType(), (-it.getBuffPower()));
-//	equipment.erase(equipment.begin() + x);
-//}
-//void Bag::removeBP(int x)
-//{
-//	backpack.erase(backpack.begin() + x);
-//}
-//void Bag::seeEQ()
-//{
-//	for (int i = 0; i < size(equipment); i++)
-//	{
-//		cout << equipment[i].getName() <<" /// "<< equipment[i].getBuffType() <<" -- "<< equipment[i].getBuffPower() << endl;
-//	}
-//
-//}
-//void Bag::seeBP()
-//{
-//	for (int i = 0; i < size(backpack); i++)
-//	{
-//		cout << backpack[i].getName() << " /// " << backpack[i].getBuffType() << " -- " << backpack[i].getBuffPower() << endl;
-//	}
-//
-//}
-//Item Bag::getItemEQ(int x)
-//{
-//	return equipment[x];
-//}
-//Item Bag::getItemBP(int x)
-//{
-//	return backpack[x];
-//}
-//vector<Item> Bag::getVectorEQ()
-//{
-//	return equipment;
-//}
-//vector<Item> Bag::getVectorBP()
-//{
-//	return backpack;
-//}
