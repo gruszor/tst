@@ -4,6 +4,7 @@
 #include"InOut.h"
 #include "Bag.h"
 #include "Item.h"
+#include "npc2item.h"
 #include <map>
 #include <iostream>
 #include <cstdlib>
@@ -26,7 +27,7 @@ public:
 	Area areaMaker(Area &,int);
 	Player NPCmaker(Area);
 	Bag &bagMaker(Area obj, Player * npc);
-	bool fight(Player &gamer, Player *npc, int actionType);
+	bool fight(Player &gamer, Player *npc, int actionType, Bag &playerEq);
 	bool trade(Player &gamer, Player *npc, int actionType, Bag & npcEq, Bag &playerEq);
 	bool speak(Player &gamer, Player *npc, int actionType);
 };

@@ -105,7 +105,7 @@ void InOut::actionManager(Area &obj, Player &gamer, Game game, Bag &plEq)
 	actionKeys['s'] = 1;
 	actionKeys['a'] = 2;
 	actionKeys['d'] = 3;
-
+	actionKeys['q'] = 4;
 
 	Player npc(game.NPCmaker(obj));
 	Player*npcPointer = &npc;
@@ -153,7 +153,7 @@ void InOut::actionManager(Area &obj, Player &gamer, Game game, Bag &plEq)
 			cout << "You are during fightt right now!" << endl;
 			cout << "Press: " << pressButton("w", "melee") << pressButton("s", "distance") << pressButton("a", "defend") << pressButton("d", "escape") << endl;
 			pressKey = _getch();
-			condition = game.fight(gamer, npcPointer, actionKeys[pressKey]);
+			condition = game.fight(gamer, npcPointer, actionKeys[pressKey],plEq);
 		} while (condition);
 		break;
 	case 2:

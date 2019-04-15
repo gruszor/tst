@@ -110,7 +110,7 @@ Bag& Game::bagMaker(Area obj,Player * npc)
 }
 
 
-bool Game::fight(Player &gamer, Player *npc, int actionType)
+bool Game::fight(Player &gamer, Player *npc, int actionType, Bag &playerEq)
 {
 	srand(time(NULL));
 
@@ -178,6 +178,10 @@ bool Game::fight(Player &gamer, Player *npc, int actionType)
 	case 3:
 		if (gamer.getLuck() + gamer.getSpeed() > npc->getSpeed()) escapeSuccess = true;
 		else gamer.setHP((gamer.getHP()) - (npc->getSpeed() + npc->getLuck()));
+		break;
+	case 4:
+		npc2item x(*npc);
+		playerEq.pushItem(x.itemFromNpc);
 		break;
 	}
 
